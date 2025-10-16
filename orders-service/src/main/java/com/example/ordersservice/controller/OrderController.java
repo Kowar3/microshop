@@ -52,18 +52,18 @@ public class OrderController {
 
     @GetMapping("/{id}/details")
     public ResponseEntity<?> getOrderDetails(@PathVariable Long id) {
-        log.info("🔗 Fetching details for order ID {}", id);
-        return orderService.getOrderById(id)
-                .<ResponseEntity<?>>map(o -> {
-                    UserDTO u = userClient.getUserById(o.getUserId());
-                    log.info("✅ Combined Order + User info for ID {}", id);
-                    return ResponseEntity.ok(new OrderDetails(o, u));
-                })
-                .orElseGet(() -> {
-                    log.warn("⚠️ Order not found with ID {}", id);
-                    return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                            .body("Order not found with ID " + id);
-                });
+        log.info("🔗 Fetching aggregated details for order ID {}", id);
+        try {
+            var details = orderService.getOrderDetails(id);
+            return ResponseEntity.ok(details);
+        } catch (IllegalArgumentException e) {
+            log.warn("⚠️ {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            log.error("💥 Error fetching details: {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE)
+                    .body("Users-service unavailable — showing partial data.");
+        }
     }
 
     @PostMapping

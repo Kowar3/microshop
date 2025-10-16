@@ -1,8 +1,10 @@
 package com.example.ordersservice.service;
 
 import com.example.ordersservice.DTO.OrderDTO;
+import com.example.ordersservice.DTO.UserDTO;
 import com.example.ordersservice.feign.UserClient;
 import com.example.ordersservice.model.Order;
+import com.example.ordersservice.model.OrderDetails;
 import com.example.ordersservice.repository.OrderRepository;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.retry.annotation.Retry;
@@ -119,5 +121,27 @@ public class OrderService {
         }
         orderRepository.deleteById(id);
         log.info("✅ Successfully deleted order with ID {}", id);
+    }
+
+    @CircuitBreaker(name = "userService", fallbackMethod = "fallbackGetOrderDetails")
+    @Retry(name = "userService")
+    public OrderDetails getOrderDetails(Long id) {
+        log.info("🔗 Fetching detailed info for order ID {}", id);
+
+        Order order = orderRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Order not found with ID " + id));
+
+        UserDTO user = userClient.getUserById(order.getUserId());
+        return new OrderDetails(order, user);
+    }
+
+    public OrderDetails fallbackGetOrderDetails(Long id, Throwable t) {
+        log.warn("⚠️ Users-service unavailable — returning partial order data for ID {}", id);
+
+        Order order = orderRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Order not found with ID " + id));
+
+        UserDTO fallbackUser = new UserDTO(null, "Unknown user (service unavailable)", "-");
+        return new OrderDetails(order, fallbackUser);
     }
 }
