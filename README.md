@@ -41,6 +41,22 @@ Sistem je podeljen na četiri glavna modula:
 
 ---
 
+## ⚙️ Sistem i Okruženje
+
+Projekat je testiran i stabilno radi sa sledećim verzijama:
+
+- **Java SDK (JDK):** Temurin 21 (LTS)
+- **Maven:** 3.8.7
+- **Spring Boot:** 3.5.6
+- **Build alat:** IntelliJ IDEA (preporučeno)
+
+🔸 Napomena:  
+Korišćenje novijih verzija JDK-a (npr. 22+ ili 24) može izazvati grešku  
+`com.sun.tools.javac.code.TypeTag :: UNKNOWN` tokom Maven build-a.  
+Zbog toga se preporučuje **Temurin JDK 21**.
+
+---
+
 ## 🎨 Dijagram Komponenti
 
 ```mermaid
