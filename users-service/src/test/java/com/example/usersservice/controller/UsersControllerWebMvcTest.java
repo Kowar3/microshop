@@ -26,7 +26,6 @@ class UsersControllerWebMvcTest {
     @MockBean
     private UserService userService;
 
-    // ✅ Header koji simulira da zahtev dolazi kroz API Gateway
     private final HttpHeaders gatewayHeaders = new HttpHeaders();
     {
         gatewayHeaders.add("X-From-Gateway", "true");
@@ -38,7 +37,7 @@ class UsersControllerWebMvcTest {
 
         mockMvc.perform(
                         get("/users/999")
-                                .headers(gatewayHeaders) // 🔥 Ključno: dodaj header
+                                .headers(gatewayHeaders)
                                 .accept(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isNotFound())
@@ -53,7 +52,7 @@ class UsersControllerWebMvcTest {
 
         mockMvc.perform(
                         get("/users/1")
-                                .headers(gatewayHeaders) // 🔥 Ključno: dodaj header
+                                .headers(gatewayHeaders)
                                 .accept(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isOk())
