@@ -1,6 +1,5 @@
 package com.example.ordersservice.service;
 
-import com.example.ordersservice.DTO.UserDTO;
 import com.example.ordersservice.feign.UserClient;
 import com.example.ordersservice.model.Order;
 import com.example.ordersservice.repository.OrderRepository;
