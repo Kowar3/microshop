@@ -128,6 +128,11 @@ Da bi joj se pristupilo kroz pregledač potrebno je:
 
 ## 🚀 Pokretanje servisa iz terminala (redosled)
 
+**Build projekta**
+```bash
+.\mvnw clean install (potreban samo prvi put)
+```
+
 Pokreće se svaki servis iz njegovog foldera komandom `.\mvnw spring-boot:run`.  
 Obavezno po sledećem redosledu:
 
