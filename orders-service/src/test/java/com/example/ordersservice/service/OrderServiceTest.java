@@ -1,5 +1,6 @@
 package com.example.ordersservice.service;
 
+import com.example.ordersservice.DTO.UserDTO;
 import com.example.ordersservice.feign.UserClient;
 import com.example.ordersservice.model.Order;
 import com.example.ordersservice.repository.OrderRepository;
@@ -8,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
 import java.math.BigDecimal;
 
@@ -22,6 +24,9 @@ class OrderServiceTest {
 
     @Mock
     UserClient userClient;
+
+    @Mock
+    RabbitTemplate rabbitTemplate;
 
     @InjectMocks
     OrderService orderService;
