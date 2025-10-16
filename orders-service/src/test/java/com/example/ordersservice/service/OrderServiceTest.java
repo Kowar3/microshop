@@ -9,7 +9,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.amqp.rabbit.core.RabbitTemplate; // Import je potreban
 
 import java.math.BigDecimal;
 
@@ -24,9 +23,6 @@ class OrderServiceTest {
 
     @Mock
     UserClient userClient;
-
-    @Mock
-    RabbitTemplate rabbitTemplate;
 
     @InjectMocks
     OrderService orderService;
