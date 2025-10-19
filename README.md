@@ -237,7 +237,7 @@ curl -X POST http://localhost:8085/api/users ^
 5. Klikom na njega → pojaviće se poruka `"OrderCreated"`.  
 6. Listener u `orders-service` (klasa `OrderEventListener`) će je obraditi i ispisati u log:  
    ```
-   📬 [RabbitMQ] Received event: OrderCreated for Order ID: 3
+   📬 [RabbitMQ] Received event: OrderCreated for Order ID: 1
    ```
 
 ---
@@ -314,13 +314,13 @@ U logovima će se videti poruka:
 ⚡ CircuitBreaker OPEN - users-service unavailable!
 ```
 
-Servis vraća HTTP 503 (ili fallback JSON odgovor). Nakon 3 pokušaja, CB ostaje otvoren 5 sekundi, zatim prelazi u Half-Open stanje.
+Servis vraća HTTP 503.
 
 ---
 
 ## 🧪 Testiranje
 
-Pokreni testove iz korena projekta:
+Pokrenuti testove iz korena projekta:
 
 ```bash
 .\mvnw clean test
@@ -337,7 +337,7 @@ Pokreni testove iz korena projekta:
 Uključeno je detaljno logovanje:
 
 - Feign pozivi (`INFO`)  
-- Resilience4j događaji (`CB_OPEN`, `CB_CLOSED`, `RETRY_ATTEMPT`)  
+- Resilience4j događaji (`OPEN`, `CLOSED`, `HALF-OPEN`)  
 - RabbitMQ događaji (publish i receive)  
 
 ---
@@ -366,6 +366,6 @@ Uključeno je detaljno logovanje:
 ---
 
 ## ✍️ Autor
-**Ime i prezime:** Bojan Kovarbasić  
+**Ime i prezime:** Bojan Kovarbašić  
 **Predmet:** Programiranje distribuiranih sistema  
 **Godina:** 2025  
