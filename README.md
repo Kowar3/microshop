@@ -362,10 +362,3 @@ Uključeno je detaljno logovanje:
 ### Napomena
 
 **Komunikacija direktno kroz 8081/users i 8082/orders nije omogućena i vratiće uvek 401 unauthorized, omogućeno je da je komunikacija validna samo kroz gateway, tako da će se koristiti samo 8085/api/users i 8085/api/orders.**
-
----
-
-## ✍️ Autor
-**Ime i prezime:** Bojan Kovarbašić  
-**Predmet:** Programiranje distribuiranih sistema  
-**Godina:** 2025  
